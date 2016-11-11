@@ -16,10 +16,11 @@ def visualize_data ():
     imdb_directorlikes_scatter.plot_data(df)
     imdb_country_box.plot_data(df)
 
-df1 = helpers.get_unique_cols(df)
-X, Y = helpers.partition_data(df1)
-X_normed = X / X.max(axis=0)
-y = helpers.quantize_scores(Y)
-x_train, x_test, y_train, y_test = train_test_split(X_normed, y, test_size=0.1)
+data = helpers.get_unique_cols(df)
+
+X, Y = helpers.partition_data(data)
+X_normed = helpers.normalize_data(X)
+x_train, x_test, y_train, y_test = train_test_split(X_normed, Y, test_size=0.1)
+
 clf = decision_tree.train(x_train, y_train)
 print decision_tree.test(clf, x_test, y_test)

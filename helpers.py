@@ -33,5 +33,6 @@ def quantize_scores (Y):
         y.append(int(round(i)))
     return y
 
-def normalize_data (df):
-    pass
+def normalize_data (X):
+    X_normed = X / X.max(axis=0)
+    return X_normed
