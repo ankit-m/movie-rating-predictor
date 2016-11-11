@@ -1,12 +1,25 @@
 #color,director_name,num_critic_for_reviews,duration,director_facebook_likes,actor_3_facebook_likes,actor_2_name,actor_1_facebook_likes,gross,genres,actor_1_name,movie_title,num_voted_users,cast_total_facebook_likes,actor_3_name,facenumber_in_poster,plot_keywords,movie_imdb_link,num_user_for_reviews,language,country,content_rating,budget,title_year,actor_2_facebook_likes,imdb_score,aspect_ratio,movie_facebook_likes
 import pandas as pd
-from visualization import *
 import matplotlib.pyplot as plt
+import numpy as np
+import helpers
+from sklearn.cross_validation import train_test_split
+from visualization import *
+from predictors import *
 
-df = pd.read_csv('data.csv')
+df = pd.read_csv('data.csv', header=0)
 
-imdb_hist.plot_data(df)
-imdb_budget_scatter.plot_data(df)
-imdb_castlikes_scatter.plot_data(df)
-imdb_directorlikes_scatter.plot_data(df)
-imdb_country_box.plot_data(df)
+def visualize_data ():
+    imdb_hist.plot_data(df)
+    imdb_budget_scatter.plot_data(df)
+    imdb_castlikes_scatter.plot_data(df)
+    imdb_directorlikes_scatter.plot_data(df)
+    imdb_country_box.plot_data(df)
+
+df1 = helpers.get_unique_cols(df)
+X, Y = helpers.partition_data(df1)
+X_normed = X / X.max(axis=0)
+y = helpers.quantize_scores(Y)
+x_train, x_test, y_train, y_test = train_test_split(X_normed, y, test_size=0.1)
+clf = decision_tree.train(x_train, y_train)
+print decision_tree.test(clf, x_test, y_test)
