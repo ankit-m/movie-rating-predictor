@@ -24,3 +24,6 @@ x_train, x_test, y_train, y_test = train_test_split(X_normed, Y, test_size=0.1)
 
 clf = decision_tree.train(x_train, y_train)
 print decision_tree.test(clf, x_test, y_test)
+
+l = linear_regression.train(x_train, y_train)
+print linear_regression.test(l, x_test, y_test)

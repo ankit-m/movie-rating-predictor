@@ -1,1 +1,1 @@
-__all__ = ["decision_tree"]
+__all__ = ["decision_tree", "linear_regression"]
