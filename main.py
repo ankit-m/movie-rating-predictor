@@ -3,11 +3,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import helpers
+import preprocess
 from sklearn.cross_validation import train_test_split
+from sklearn.linear_model import LogisticRegression
 from visualization import *
 from predictors import *
+from sklearn import preprocessing
+import matplotlib.pyplot as plt
 
 df = pd.read_csv('data.csv', header=0)
+ids = ['movie_facebook_likes','duration','director_facebook_likes','actor_3_facebook_likes','actor_2_facebook_likes','actor_1_facebook_likes','cast_total_facebook_likes','facenumber_in_poster','budget','imdb_score']
 
 def visualize_data ():
     imdb_hist.plot_data(df)
@@ -16,11 +21,29 @@ def visualize_data ():
     imdb_directorlikes_scatter.plot_data(df)
     imdb_country_box.plot_data(df)
 
-data = helpers.get_unique_cols(df)
+def plot_correlation_matrix (data):
+    correlation_matrix = data.corr()
+    plt.imshow(correlation_matrix, cmap=plt.cm.Spectral_r, interpolation='nearest')
+    plt.xticks(range(len(correlation_matrix)), ids, fontsize=10, rotation='vertical')
+    plt.yticks(range(len(correlation_matrix)), ids, fontsize=10)
+    plt.colorbar()
+    plt.show()
 
-X, Y = helpers.partition_data(data)
-X_normed = helpers.normalize_data(X)
-x_train, x_test, y_train, y_test = train_test_split(X_normed, Y, test_size=0.1)
+data = df[ids]
+# plot_correlation_matrix(data)
+
+X, Y = helpers.get_numpy_data(data)
+X_normed = preprocessing.normalize(X, axis=0)
+X_scaled = preprocessing.scale(X_normed)
+x_train, x_test, y_train, y_test = train_test_split(X_scaled, Y, test_size=0.1)
+
+# y_test = helpers.quantize_scores(y_test)
+# y_train = helpers.quantize_scores(y_train)
+# model = LogisticRegression()
+# model = model.fit(x_train, y_train)
+# print model.predict(x_test)
+# print y_test
+# print model.score(x_test, y_test)
 
 clf = decision_tree.train(x_train, y_train)
 print decision_tree.test(clf, x_test, y_test)
