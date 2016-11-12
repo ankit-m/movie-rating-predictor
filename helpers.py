@@ -16,9 +16,9 @@ def get_unique_cols (df):
         'actor_3_facebook_likes',
         'actor_2_facebook_likes',
         'actor_1_facebook_likes',
-        'facenumber_in_poster',
+        # 'facenumber_in_poster',
         'budget',
-        'title_year',
+        # 'title_year',
         'imdb_score'
     ]]
 

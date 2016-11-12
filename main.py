@@ -27,3 +27,6 @@ print decision_tree.test(clf, x_test, y_test)
 
 l = linear_regression.train(x_train, y_train)
 print linear_regression.test(l, x_test, y_test)
+
+clf = naive_bayes.train(x_train, y_train)
+print naive_bayes.test(clf, x_test, y_test)
