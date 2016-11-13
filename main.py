@@ -19,7 +19,6 @@ ids = [
     'actor_3_facebook_likes',
     'actor_2_facebook_likes',
     'actor_1_facebook_likes',
-    'cast_total_facebook_likes',
     'facenumber_in_poster',
     'budget',
     'imdb_score'
@@ -46,7 +45,7 @@ data = df[ids]
 X, Y = helpers.get_numpy_data(data)
 X_normed = preprocessing.normalize(X, axis=0)
 X_scaled = preprocessing.scale(X_normed)
-x_train, x_test, y_train, y_test = train_test_split(X_scaled, Y, test_size=0.1)
+x_train, x_test, y_train, y_test = train_test_split(X_scaled, Y, test_size=0.2)
 
 # y_test = helpers.quantize_scores(y_test)
 # y_train = helpers.quantize_scores(y_train)
@@ -67,3 +66,6 @@ print linear_regression.test(l, x_test, y_test)
 
 # clf = svm.train(x_train, y_train)
 # print svm.test(clf, x_test, y_test)
+
+clf = random_forest.train(x_train, y_train)
+print random_forest.test(clf, x_test, y_test)
