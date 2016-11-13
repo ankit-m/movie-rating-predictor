@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn import preprocessing
 
 def get_numpy_data (df):
     numeric_df = df._get_numeric_data()
@@ -16,16 +17,12 @@ def quantize_scores (Y):
         y.append(int(round(i)))
     return y
 
-def normalize_data (X):
-    X_normed = X / X.max(axis=0)
-    return X_normed
-
-def calc_accuracy (h, y):
-    count = 0
-    for i in range(len(h)):
-        if abs(h[i] - y[i]) <= 0.5:
-            count += 1
-    return count/float(len(h))
+def scale_data (x_train, x_test):
+    scaler = preprocessing.StandardScaler()
+    scaler.fit(x_train)
+    x_train = scaler.transform(x_train)
+    x_test = scaler.transform(x_test)
+    return (x_train, x_test)
 
 def plot_predictions (h, y):
     plt.plot(h, color='r', linestyle=':', marker='o')

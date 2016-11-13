@@ -3,12 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import helpers
-import preprocess
-from sklearn.cross_validation import train_test_split
 from sklearn.linear_model import LogisticRegression
 from visualization import *
 from predictors import *
-from sklearn import preprocessing
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('data.csv', header=0)
@@ -43,29 +40,12 @@ data = df[ids]
 # plot_correlation_matrix(data)
 
 X, Y = helpers.get_numpy_data(data)
-X_normed = preprocessing.normalize(X, axis=0)
-X_scaled = preprocessing.scale(X_normed)
-x_train, x_test, y_train, y_test = train_test_split(X_scaled, Y, test_size=0.2)
 
-# y_test = helpers.quantize_scores(y_test)
-# y_train = helpers.quantize_scores(y_train)
-# model = LogisticRegression()
-# model = model.fit(x_train, y_train)
-# print model.predict(x_test)
-# print y_test
-# print model.score(x_test, y_test)
+# classification.run(X, Y)
+regression.run(X, Y)
 
-# clf = decision_tree.train(x_train, y_train)
-# print decision_tree.test(clf, x_test, y_test)
+# l = linear_regression.train(x_train, y_train)
+# print 'Regression: ', linear_regression.test(l, x_test, y_test)
 #
-l = linear_regression.train(x_train, y_train)
-print linear_regression.test(l, x_test, y_test)
-#
-# clf = naive_bayes.train(x_train, y_train)
-# print naive_bayes.test(clf, x_test, y_test)
-
 # clf = svm.train(x_train, y_train)
-# print svm.test(clf, x_test, y_test)
-
-clf = random_forest.train(x_train, y_train)
-print random_forest.test(clf, x_test, y_test)
+# print 'SVM: ', svm.test(clf, x_test, y_test)
