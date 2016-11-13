@@ -12,7 +12,18 @@ from sklearn import preprocessing
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('data.csv', header=0)
-ids = ['movie_facebook_likes','duration','director_facebook_likes','actor_3_facebook_likes','actor_2_facebook_likes','actor_1_facebook_likes','cast_total_facebook_likes','facenumber_in_poster','budget','imdb_score']
+ids = [
+    'movie_facebook_likes',
+    'duration',
+    'director_facebook_likes',
+    'actor_3_facebook_likes',
+    'actor_2_facebook_likes',
+    'actor_1_facebook_likes',
+    'cast_total_facebook_likes',
+    'facenumber_in_poster',
+    'budget',
+    'imdb_score'
+    ]
 
 def visualize_data ():
     imdb_hist.plot_data(df)
@@ -45,11 +56,14 @@ x_train, x_test, y_train, y_test = train_test_split(X_scaled, Y, test_size=0.1)
 # print y_test
 # print model.score(x_test, y_test)
 
-clf = decision_tree.train(x_train, y_train)
-print decision_tree.test(clf, x_test, y_test)
-
+# clf = decision_tree.train(x_train, y_train)
+# print decision_tree.test(clf, x_test, y_test)
+#
 l = linear_regression.train(x_train, y_train)
 print linear_regression.test(l, x_test, y_test)
+#
+# clf = naive_bayes.train(x_train, y_train)
+# print naive_bayes.test(clf, x_test, y_test)
 
-clf = naive_bayes.train(x_train, y_train)
-print naive_bayes.test(clf, x_test, y_test)
+# clf = svm.train(x_train, y_train)
+# print svm.test(clf, x_test, y_test)
