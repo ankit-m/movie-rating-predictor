@@ -20,6 +20,7 @@ ids = [
     'budget',
     'imdb_score'
     ]
+data = df[ids]      # features with continuous variables
 
 def visualize_data ():
     imdb_hist.plot_data(df)
@@ -27,25 +28,9 @@ def visualize_data ():
     imdb_castlikes_scatter.plot_data(df)
     imdb_directorlikes_scatter.plot_data(df)
     imdb_country_box.plot_data(df)
+    correlation_matrix.plot_data(df, ids)
 
-def plot_correlation_matrix (data):
-    correlation_matrix = data.corr()
-    plt.imshow(correlation_matrix, cmap=plt.cm.Spectral_r, interpolation='nearest')
-    plt.xticks(range(len(correlation_matrix)), ids, fontsize=10, rotation='vertical')
-    plt.yticks(range(len(correlation_matrix)), ids, fontsize=10)
-    plt.colorbar()
-    plt.show()
-
-data = df[ids]
-# plot_correlation_matrix(data)
-
+# visualize_data()
 X, Y = helpers.get_numpy_data(data)
-
-# classification.run(X, Y)
+classification.run(X, Y)
 regression.run(X, Y)
-
-# l = linear_regression.train(x_train, y_train)
-# print 'Regression: ', linear_regression.test(l, x_test, y_test)
-#
-# clf = svm.train(x_train, y_train)
-# print 'SVM: ', svm.test(clf, x_test, y_test)
