@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import helpers
+import feature_importance
 from sklearn.linear_model import LogisticRegression
 from visualization import *
 from predictors import *
@@ -32,5 +33,6 @@ def visualize_data ():
 
 # visualize_data()
 X, Y = helpers.get_numpy_data(data)
-classification.run(X, Y)
-regression.run(X, Y)
+# classification.run(X, Y)
+# regression.run(X, Y)
+feature_importance.run(X, Y, ids)

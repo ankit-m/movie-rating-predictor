@@ -37,7 +37,7 @@ def run (X, Y):
         scores = []
         accuracies = []
         residuals = []
-        for j in range(1):     # 10 fold cross validation
+        for j in range(10):     # 10 fold cross validation
             x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
             x_train, x_test = helpers.scale_data(x_train, x_test)
             h = regressors[i].fit(x_train, y_train).predict(x_test)
